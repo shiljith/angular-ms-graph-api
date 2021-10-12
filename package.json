@@ -1,5 +1,5 @@
 {
-  "name": "ms-identity-angular-c2s1",
+  "name": "angular-ms-graph-api",
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
