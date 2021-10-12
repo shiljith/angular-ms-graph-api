@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="menu">
+    <div class="menu-item">
+      <h3>Create New Folder</h3>
+      <div>
+        <mat-form-field class="form-field">
+          <mat-label>Folder Name</mat-label>
+          <input matInput type="text" [(ngModel)]="itemName">
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-stroked-button color="warn" (click)="createNewFolder()">Create New Folder</button>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <h3>Upload File</h3>
+      <div>
+        <input type="file" class="menu-file" name="file" id="file" (change)="selectFile($event)">
+      </div>
+      <div>
+        <button mat-stroked-button color="warn" (click)="uploadFile()">Upload File</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="dive-container">
+    <h2>My Files</h2>
+    <div class="breadcrumb">
+      <div *ngFor="let bread of breadcrumb">
+        <button mat-stroked-button color="primary" (click)="goBack(bread.path)">Root</button>
+      </div>
+    </div>
+    <div class="drive-wrapper">
+      <div *ngIf="displayUrl !== ''">
+        <iframe [src]="getSanitize(displayUrl)" frameborder="0" width="100%" height="500px"></iframe>
+      </div>
+
+      <div class="dive-list">
+        <div class="loader" *ngIf="loader">Loading...</div>
+        <ng-container *ngIf="displayUrl === ''">
+          <div class="drive-item" *ngFor="let item of oneDriveCollection" (click)="onSelected(item)"
+            (dblclick)="onClick(item)" [class.selected]="selectedItem == item">
+            <img src="assets/images/{{(item?.file) ? 'file.png' : 'folder.png'}}" alt="Folder">
+            <div class="item-name">{{item?.name}}</div>
+            <div class="created-at">{{item?.createdDateTime | date}}</div>
+          </div>
+        </ng-container>
+
+      </div>
+    </div>
+
+  </div>
+</div>
